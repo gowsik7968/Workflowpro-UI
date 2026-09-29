@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios instance
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "https://workflowpro-1axf.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
