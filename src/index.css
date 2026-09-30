@@ -1389,7 +1389,7 @@ input:focus-visible {
   gap: 8px;
 }
 
-.project-delete-btn .admin-delete-user-btn {
+.project-delete-btn , .admin-delete-user-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
