@@ -1,83 +1,111 @@
-import { useEffect, useState } from "react"  
-import {getMyTeams,getTeamById,createTeam,addTeamMember,removeTeamMember,deleteTeam,} from "../services/api"  
-import {ROLES,
+import { useEffect, useState } from "react"
+import {
+  getMyTeams,
+  getTeamById,
+  createTeam,
+  addTeamMember,
+  removeTeamMember,
+  deleteTeam,
+} from "../services/api"
+import {
+  ROLES,
   getCurrentUserRole,
-} from "../utils/permission"  
+} from "../utils/permission"
+
 const canCreateTeam = (role) => {
   return [
     ROLES.TEAM_LEAD,
     ROLES.MANAGER,
     ROLES.ADMIN,
-  ].includes(role)  
-}  
+  ].includes(role)
+}
+
 const canManageMembers = (role) => {
   return [
     ROLES.TEAM_LEAD,
     ROLES.MANAGER,
     ROLES.ADMIN,
-  ].includes(role)  
-}  
+  ].includes(role)
+}
+
 const canDeleteAnyTeam = (role) => {
-  return  === S.ADMIN  
-}  
+  return role === ROLES.ADMIN
+}
+
 const canDeleteOwnTeam = (role) => {
   return [
     ROLES.TEAM_LEAD,
     ROLES.ADMIN,
-  ].includes(role)  
-}  
+  ].includes(role)
+}
+
 // CURRENT USER EMAIL
 const getCurrentUserEmail = () => {
   try {
     const token =
-      localStorage.getItem("token")  
+      localStorage.getItem("token")
 
     if (!token) {
-      return ""  
+      return ""
     }
 
     const payload = JSON.parse(
       atob(token.split(".")[1])
-    )  
-    return payload.sub || ""  
+    )
+
+    return payload.sub || ""
   } catch (error) {
-    console.error("Unable to read user email from token:",error)  
-    return ""  
+    console.error(
+      "Unable to read user email from token:",
+      error
+    )
+
+    return ""
   }
-}  
+}
+
 function Team() {
-  const [teams, setTeams] = useState([])  
-  const [selectedTeam, setSelectedTeam] =useState(null)  
-  const [name, setName] = useState("")  
-  const [description, setDescription] =useState("")  
-  const [memberEmail, setMemberEmail] =useState("")  
-  const [showForm, setShowForm] =useState(false)  
-  const [loading, setLoading] =useState(true)  
-  const [saving, setSaving] =useState(false)  
-  const [error, setError] =useState("")  
-  const [success, setSuccess] =useState("")  
+  const [teams, setTeams] = useState([])
+  const [selectedTeam, setSelectedTeam] = useState(null)
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [memberEmail, setMemberEmail] = useState("")
+  const [showForm, setShowForm] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+
   // CURRENT USER
-  const currentUserRole =getCurrentUserRole() || ROLES.USER  
-  const currentUserEmail =getCurrentUserEmail()  
+  const currentUserRole =
+    getCurrentUserRole() || ROLES.USER
+
+  const currentUserEmail =
+    getCurrentUserEmail()
+
   // ERROR MESSAGE
   const getErrorMessage = (err) =>
     err.response?.data?.message ||
     err.response?.data?.error ||
     err.message ||
-    "Something went wrong. Please try again."  
+    "Something went wrong. Please try again."
+
   // TEAM MANAGEMENT PERMISSION
   const canManageSelectedTeam = (team) => {
     if (!team) {
-      return false  
+      return false
     }
+
     // ADMIN can manage every team
     if (currentUserRole === ROLES.ADMIN) {
-      return true  
+      return true
     }
+
     // MANAGER can manage every team
     if (currentUserRole === ROLES.MANAGER) {
-      return true  
+      return true
     }
+
     // TEAM_LEAD can manage only their own team
     if (
       currentUserRole ===
@@ -86,24 +114,28 @@ function Team() {
       return (
         team.ownerEmail?.toLowerCase() ===
         currentUserEmail.toLowerCase()
-      )  
+      )
     }
+
     // USER cannot manage members
-    return false  
-  }  
-  //DELETE TEAM PERMISSION
+    return false
+  }
+
+  // DELETE TEAM PERMISSION
   const canDeleteTeam = (team) => {
     if (!team) {
-      return false  
+      return false
     }
+
     // ADMIN can delete any team
     if (
       canDeleteAnyTeam(
         currentUserRole
       )
     ) {
-      return true  
+      return true
     }
+
     // TEAM_LEAD can delete only their own team
     if (
       canDeleteOwnTeam(
@@ -113,38 +145,50 @@ function Team() {
       return (
         team.ownerEmail?.toLowerCase() ===
         currentUserEmail.toLowerCase()
-      )  
+      )
     }
+
     // MANAGER cannot delete teams
     // USER cannot delete teams
-    return false  
-  }  
+    return false
+  }
+
   // LOAD TEAM
   const loadTeams = async () => {
     try {
-      setLoading(true)  
-      setError("")  
-      const response =await getMyTeams()  
+      setLoading(true)
+      setError("")
+
+      const response =
+        await getMyTeams()
+
       setTeams(
-        Array.isArray(response.data)? response.data: [])  
+        Array.isArray(response.data)
+          ? response.data
+          : []
+      )
     } catch (err) {
-      console.error("Error loading teams:",err)  
+      console.error(
+        "Error loading teams:",
+        err
+      )
+
       setError(
         getErrorMessage(err)
-      )  
+      )
     } finally {
-      setLoading(false)  
+      setLoading(false)
     }
-  }  
+  }
+
   useEffect(() => {
-    loadTeams()  
-  }, [])  
-    
+    loadTeams()
+  }, [])
+
   // CREATE TEAM
-    
 
   const handleCreateTeam = async (e) => {
-    e.preventDefault()  
+    e.preventDefault()
 
     if (
       !canCreateTeam(
@@ -153,86 +197,84 @@ function Team() {
     ) {
       setError(
         "You do not have permission to create a team."
-      )  
-      return  
+      )
+
+      return
     }
 
     if (!name.trim()) {
       setError(
         "Team name is required."
-      )  
-      return  
+      )
+
+      return
     }
 
     try {
-      setSaving(true)  
-      setError("")  
-      setSuccess("")  
+      setSaving(true)
+      setError("")
+      setSuccess("")
 
       await createTeam({
         name: name.trim(),
         description:
           description.trim(),
-      })  
+      })
 
-      setName("")  
-      setDescription("")  
-      setShowForm(false)  
+      setName("")
+      setDescription("")
+      setShowForm(false)
 
       setSuccess(
         "Team created successfully!"
-      )  
+      )
 
-      await loadTeams()  
+      await loadTeams()
     } catch (err) {
       console.error(
         "Error creating team:",
         err
-      )  
+      )
 
       setError(
         getErrorMessage(err)
-      )  
+      )
     } finally {
-      setSaving(false)  
+      setSaving(false)
     }
-  }  
+  }
 
-    
   // VIEW TEAM
-    
 
   const handleViewTeam = async (
     teamId
   ) => {
     try {
-      setError("")  
-      setSuccess("")  
+      setError("")
+      setSuccess("")
 
       const response =
-        await getTeamById(teamId)  
+        await getTeamById(teamId)
 
       setSelectedTeam(
         response.data
-      )  
+      )
     } catch (err) {
       console.error(
         "Error loading team:",
         err
-      )  
+      )
 
       setError(
         getErrorMessage(err)
-      )  
+      )
     }
-  }  
+  }
 
-    
   // ADD MEMBER
-    
 
   const handleAddMember = async (e) => {
-    e.preventDefault()  
+    e.preventDefault()
 
     if (
       !canManageSelectedTeam(
@@ -241,57 +283,57 @@ function Team() {
     ) {
       setError(
         "You do not have permission to manage members of this team."
-      )  
-      return  
+      )
+
+      return
     }
 
     if (!memberEmail.trim()) {
       setError(
         "Enter the member's email."
-      )  
-      return  
+      )
+
+      return
     }
 
     try {
-      setSaving(true)  
-      setError("")  
-      setSuccess("")  
+      setSaving(true)
+      setError("")
+      setSuccess("")
 
       await addTeamMember(
         selectedTeam.id,
         memberEmail
           .trim()
           .toLowerCase()
-      )  
+      )
 
-      setMemberEmail("")  
+      setMemberEmail("")
 
       setSuccess(
         "Team member added successfully!"
-      )  
+      )
 
       await handleViewTeam(
         selectedTeam.id
-      )  
+      )
 
-      await loadTeams()  
+      await loadTeams()
     } catch (err) {
       console.error(
         "Error adding team member:",
         err
-      )  
+      )
 
       setError(
         getErrorMessage(err)
-      )  
+      )
     } finally {
-      setSaving(false)  
+      setSaving(false)
     }
-  }  
+  }
 
-    
   // REMOVE MEMBER
-    
 
   const handleRemoveMember = async (
     email
@@ -303,55 +345,54 @@ function Team() {
     ) {
       setError(
         "You do not have permission to manage members of this team."
-      )  
-      return  
+      )
+
+      return
     }
 
     const confirmed =
       window.confirm(
         `Remove ${email} from this team?`
-      )  
+      )
 
     if (!confirmed) {
-      return  
+      return
     }
 
     try {
-      setSaving(true)  
-      setError("")  
-      setSuccess("")  
+      setSaving(true)
+      setError("")
+      setSuccess("")
 
       await removeTeamMember(
         selectedTeam.id,
         email
-      )  
+      )
 
       setSuccess(
         "Member removed successfully!"
-      )  
+      )
 
       await handleViewTeam(
         selectedTeam.id
-      )  
+      )
 
-      await loadTeams()  
+      await loadTeams()
     } catch (err) {
       console.error(
         "Error removing team member:",
         err
-      )  
+      )
 
       setError(
         getErrorMessage(err)
-      )  
+      )
     } finally {
-      setSaving(false)  
+      setSaving(false)
     }
-  }  
+  }
 
-    
   // DELETE TEAM
-    
 
   const handleDeleteTeam = async (
     team
@@ -359,38 +400,39 @@ function Team() {
     if (!canDeleteTeam(team)) {
       setError(
         "You do not have permission to delete this team."
-      )  
-      return  
+      )
+
+      return
     }
 
     const confirmed =
       window.confirm(
         `Delete the team "${team.name}"? This cannot be undone.`
-      )  
+      )
 
     if (!confirmed) {
-      return  
+      return
     }
 
     try {
-      setSaving(true)  
-      setError("")  
-      setSuccess("")  
+      setSaving(true)
+      setError("")
+      setSuccess("")
 
-      await deleteTeam(team.id)  
+      await deleteTeam(team.id)
 
-      setSelectedTeam(null)  
+      setSelectedTeam(null)
 
       setSuccess(
         "Team deleted successfully!"
-      )  
+      )
 
-      await loadTeams()  
+      await loadTeams()
     } catch (err) {
       console.error(
         "Error deleting team:",
         err
-      )  
+      )
 
       if (
         err.response?.status ===
@@ -398,29 +440,25 @@ function Team() {
       ) {
         setError(
           "403 Forbidden: You do not have permission to delete this team."
-        )  
+        )
       } else {
         setError(
           getErrorMessage(err)
-        )  
+        )
       }
     } finally {
-      setSaving(false)  
+      setSaving(false)
     }
-  }  
+  }
 
-    
   // JSX
-    
 
   return (
     <div className="team-page">
 
       <div className="team-container">
 
-        {/* ================================================= */}
         {/* HEADER */}
-        {/* ================================================= */}
 
         <div className="team-header">
 
@@ -449,10 +487,10 @@ function Team() {
               onClick={() => {
                 setShowForm(
                   !showForm
-                )  
+                )
 
-                setError("")  
-                setSuccess("")  
+                setError("")
+                setSuccess("")
               }}
             >
               {showForm
@@ -464,9 +502,7 @@ function Team() {
 
         </div>
 
-        {/* ================================================= */}
         {/* CURRENT ROLE */}
-        {/* ================================================= */}
 
         <div className="team-role-info">
 
@@ -480,11 +516,10 @@ function Team() {
           )}
 
         </div>
-      <br></br>
 
-        {/* ================================================= */}
+        <br />
+
         {/* ALERTS */}
-        {/* ================================================= */}
 
         {error && (
 
@@ -502,9 +537,7 @@ function Team() {
 
         )}
 
-        {/* ================================================= */}
         {/* CREATE TEAM FORM */}
-        {/* ================================================= */}
 
         {showForm &&
           canCreateTeam(
@@ -587,9 +620,7 @@ function Team() {
 
           )}
 
-        {/* ================================================= */}
         {/* TEAM LIST */}
-        {/* ================================================= */}
 
         <section className="team-list-section">
 
@@ -741,9 +772,7 @@ function Team() {
 
         </section>
 
-        {/* ================================================= */}
         {/* SELECTED TEAM DETAILS */}
-        {/* ================================================= */}
 
         {selectedTeam && (
 
@@ -792,9 +821,7 @@ function Team() {
 
             </p>
 
-            {/* ================================================= */}
             {/* ADD MEMBER */}
-            {/* ================================================= */}
 
             {canManageMembers(
               currentUserRole
@@ -839,9 +866,7 @@ function Team() {
 
               )}
 
-            {/* ================================================= */}
             {/* MEMBERS */}
-            {/* ================================================= */}
 
             <h3 className="team-members-title">
 
@@ -918,7 +943,7 @@ function Team() {
       </div>
 
     </div>
-  )  
+  )
 }
 
-export default Team  
+export default Team
