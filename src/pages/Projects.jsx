@@ -233,7 +233,7 @@ function Projects() {
       </div>
       {/* CURRENT ROLE */}
       <div className="projects-role-info">
-        Current Role:{" "}
+        Current Role:{" "}<br></br>
         <strong>{userRole || "USER"}</strong>
       </div>
       {/* SUCCESS */}
