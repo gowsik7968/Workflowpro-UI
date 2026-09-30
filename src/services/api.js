@@ -1,8 +1,6 @@
 import axios from "axios";
 
-// ==================================================
 // AXIOS INSTANCE
-// ==================================================
 
 const api = axios.create({
   baseURL: "https://workflowpro-1axf.onrender.com",
@@ -11,9 +9,7 @@ const api = axios.create({
   },
 });
 
-// ==================================================
 // JWT TOKEN INTERCEPTOR
-// ==================================================
 
 api.interceptors.request.use(
   (config) => {
@@ -28,9 +24,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ==================================================
 // AUTH / ROLE HELPERS
-// ==================================================
 
 export const getCurrentUserFromToken = () => {
   const token = localStorage.getItem("token");
@@ -62,9 +56,7 @@ export const getCurrentUserEmail = () => {
   return user?.email || null;
 };
 
-// ==================================================
 // AUTHENTICATION APIs
-// ==================================================
 
 export const registerUser = (userData) => {
   return api.post("/api/auth/register", userData);
@@ -84,54 +76,50 @@ export const logoutUser = () => {
   localStorage.removeItem("token");
 };
 
-// ==================================================
 // PROJECT APIs
-// ==================================================
 
 export const getAllProjects = () => {
-  return api.get("/projects");
+  return api.get("/api/projects");
 };
 
 export const getProjectById = (id) => {
-  return api.get(`/projects/${id}`);
+  return api.get(`/api/projects/${id}`);
 };
 
 export const createProject = (projectData) => {
-  return api.post("/projects", projectData);
+  return api.post("/api/projects", projectData);
 };
 
 export const updateProject = (id, projectData) => {
-  return api.put(`/projects/${id}`, projectData);
+  return api.put(`/api/projects/${id}`, projectData);
 };
 
 export const deleteProject = (id) => {
-  return api.delete(`/projects/${id}`);
+  return api.delete(`/api/projects/${id}`);
 };
 
-// ==================================================
 // TEAM APIs
-// ==================================================
 
 export const getMyTeams = () => {
-  return api.get("/teams");
+  return api.get("/api/teams");
 };
 
 export const getTeamById = (id) => {
-  return api.get(`/teams/${id}`);
+  return api.get(`/api/teams/${id}`);
 };
 
 export const createTeam = (teamData) => {
-  return api.post("/teams", teamData);
+  return api.post("/api/teams", teamData);
 };
 
 export const addTeamMember = (teamId, email) => {
-  return api.post(`/teams/${teamId}/members`, {
+  return api.post(`/api/teams/${teamId}/members`, {
     email,
   });
 };
 
 export const removeTeamMember = (teamId, email) => {
-  return api.delete(`/teams/${teamId}/members`, {
+  return api.delete(`/api/teams/${teamId}/members`, {
     params: {
       email,
     },
@@ -139,111 +127,95 @@ export const removeTeamMember = (teamId, email) => {
 };
 
 export const deleteTeam = (teamId) => {
-  return api.delete(`/teams/${teamId}`);
+  return api.delete(`/api/teams/${teamId}`);
 };
 
-// ==================================================
 // TASK APIs
-// ==================================================
 
 export const getAllTasks = () => {
-  return api.get("/tasks");
+  return api.get("/api/tasks");
 };
 
 export const getTaskById = (id) => {
-  return api.get(`/tasks/${id}`);
+  return api.get(`/api/tasks/${id}`);
 };
 
 export const createTask = (taskData) => {
-  return api.post("/tasks", taskData);
+  return api.post("/api/tasks", taskData);
 };
 
 export const updateTask = (id, taskData) => {
-  return api.put(`/tasks/${id}`, taskData);
+  return api.put(`/api/tasks/${id}`, taskData);
 };
 
 export const deleteTask = (id) => {
-  return api.delete(`/tasks/${id}`);
+  return api.delete(`/api/tasks/${id}`);
 };
 
-// ==================================================
 // TASK COMMENT APIs
-// ==================================================
 
 export const getTaskComments = (taskId) => {
-  return api.get(`/tasks/${taskId}/comments`);
+  return api.get(`/api/tasks/${taskId}/comments`);
 };
 
 export const addTaskComment = (taskId, content) => {
-  return api.post(`/tasks/${taskId}/comments`, {
+  return api.post(`/api/tasks/${taskId}/comments`, {
     content,
   });
 };
 
-// ==================================================
 // NOTIFICATION APIs
-// ==================================================
 
 export const getNotifications = () => {
-  return api.get("/notifications");
+  return api.get("/api/notifications");
 };
 
 export const getUnreadNotificationCount = () => {
-  return api.get("/notifications/unread-count");
+  return api.get("/api/notifications/unread-count");
 };
 
 export const markNotificationAsRead = (notificationId) => {
-  return api.put(`/notifications/${notificationId}/read`);
+  return api.put(`/api/notifications/${notificationId}/read`);
 };
 
 export const markAllNotificationsAsRead = () => {
-  return api.put("/notifications/read-all");
+  return api.put("/api/notifications/read-all");
 };
 
 export const deleteNotification = (notificationId) => {
-  return api.delete(`/notifications/${notificationId}`);
+  return api.delete(`/api/notifications/${notificationId}`);
 };
 
-// ==================================================
 // ACTIVITY APIs
-// ==================================================
 
 export const getAllActivities = () => {
-  return api.get("/activities");
+  return api.get("/api/activities");
 };
 
 export const getMyActivities = () => {
-  return api.get("/activities/my");
+  return api.get("/api/activities/my");
 };
 
-// ==================================================
 // DASHBOARD APIs
-// ==================================================
 
 export const getDashboardStats = () => {
-  return api.get("/dashboard/stats");
+  return api.get("/api/dashboard/stats");
 };
 
-// ==================================================
 // ADMIN APIs
-// ==================================================
 
 export const getAdminUsers = () => {
-  return api.get("/admin/users");
+  return api.get("/api/admin/users");
 };
 
 export const changeUserRole = (userId, role) => {
-  return api.put(`/admin/users/${userId}/role`, {
+  return api.put(`/api/admin/users/${userId}/role`, {
     role,
   });
 };
 
 export const deleteAdminUser = (userId) => {
-  return api.delete(`/admin/users/${userId}`);
+  return api.delete(`/api/admin/users/${userId}`);
 };
-
-// ==================================================
-// EXPORT
-// ==================================================
 
 export default api;
