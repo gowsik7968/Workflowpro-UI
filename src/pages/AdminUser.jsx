@@ -139,7 +139,7 @@ function AdminUsers() {
     <div className="admin-users-page">
       {/* HEADER */}
       <div className="admin-users-header">
-        <div>/ 
+        <div> 
           <h2>User Management</h2>
           <p>
             Manage WorkFlowPro users and
@@ -185,7 +185,7 @@ function AdminUsers() {
                   <td><strong>{user.fullName}</strong></td>
                   <td>{user.email}</td>
                   <td><div className="admin-user-role">
-                    <span className={`admin-role-badge ${getRoleClass(user.role)}`}>
+                    <span className={`admin-role-badge ${getRoleClass(user.role)}  `}>
                         {getRoleLabel(user.role)}
                     </span>
                       <select value={user.role}onChange={(e) =>
