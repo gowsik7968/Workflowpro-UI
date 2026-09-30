@@ -1,6 +1,4 @@
-// ==========================================
-// WorkFlowPro Role Permissions
-// ==========================================
+// WorkFlowPro role permissions
 
 export const ROLES = {
   USER: "USER",
@@ -9,9 +7,7 @@ export const ROLES = {
   ADMIN: "ADMIN",
 };
 
-// ==========================================
-// GET CURRENT USER ROLE
-// ==========================================
+// Get current logged-in user's role
 
 export const getCurrentUserRole = () => {
   const token = localStorage.getItem("token");
@@ -32,9 +28,7 @@ export const getCurrentUserRole = () => {
   }
 };
 
-// ==========================================
-// CHECK ROLE
-// ==========================================
+// Check one role
 
 export const hasRole = (role) => {
   const currentRole = getCurrentUserRole();
@@ -42,9 +36,7 @@ export const hasRole = (role) => {
   return currentRole === role;
 };
 
-// ==========================================
-// CHECK MULTIPLE ROLES
-// ==========================================
+// Check multiple roles
 
 export const hasAnyRole = (roles = []) => {
   const currentRole = getCurrentUserRole();
@@ -71,7 +63,10 @@ export const canEditProject = () => {
 };
 
 export const canDeleteProject = () => {
-  return hasRole(ROLES.ADMIN);
+  return hasAnyRole([
+    ROLES.MANAGER,
+    ROLES.ADMIN,
+  ]);
 };
 
 // ==========================================
@@ -89,7 +84,6 @@ export const canCreateTask = () => {
 
 export const canEditTask = () => {
   return hasAnyRole([
-    ROLES.USER,
     ROLES.TEAM_LEAD,
     ROLES.MANAGER,
     ROLES.ADMIN,
