@@ -233,9 +233,10 @@ function Projects() {
       </div>
       {/* CURRENT ROLE */}
       <div className="projects-role-info">
-        Current Role:{" "}<br></br>
+        Current Role:{" "}
         <strong>{userRole || "USER"}</strong>
       </div>
+      <br></br>
       {/* SUCCESS */}
       {success && (<div className="projects-success">{success}</div>)}
       {/* CREATE / EDIT FORM */}
