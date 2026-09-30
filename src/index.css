@@ -1404,7 +1404,7 @@ input:focus-visible {
   transition: 0.2s ease;
 }
 
-.project-delete-btn:hover {
+.project-delete-btn:hover,admin-delete-user-btn:hover {
   background: #fef2f2;
   border-color: #dc2626;
 }
