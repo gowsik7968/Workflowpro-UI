@@ -18,7 +18,7 @@ const canManageMembers = (role) => {
   ].includes(role)  
 }  
 const canDeleteAnyTeam = (role) => {
-  return role === ROLES.ADMIN  
+  return  === S.ADMIN  
 }  
 const canDeleteOwnTeam = (role) => {
   return [
@@ -480,6 +480,7 @@ function Team() {
           )}
 
         </div>
+      <br></br>
 
         {/* ================================================= */}
         {/* ALERTS */}
