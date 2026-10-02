@@ -1,293 +1,326 @@
-# 🛒 ShopSphere — Full Stack E-Commerce Application
+# 🚀 WorkFlowPro – Project & Team Management System
 
-ShopSphere is a full-stack e-commerce web application built using **React.js** for the frontend and **Spring Boot** for the backend.
+WorkFlowPro is a **full-stack Project & Team Management System** developed to help teams organize projects, manage tasks, collaborate with team members, and track project progress from a centralized platform.
 
-The application provides a complete shopping experience including product browsing, search, shopping cart, checkout, order management, user authentication, and admin product management.
-
----
-
-## 🚀 Features
-
-### 👤 User Features
-
-* User registration
-* User login
-* JWT-based authentication
-* Secure user authentication and authorization
-* Browse products
-* Search products
-* Filter products by category
-* View product details
-* Add products to cart
-* Increase/decrease product quantity
-* Remove products from cart
-* Checkout
-* Place orders
-* View order history
-* View order details
-* Logout functionality
-
-### 👨‍💼 Admin Features
-
-* Admin authentication
-* Admin-only product management
-* Add new products
-* Manage product information
-* Protected admin APIs using Spring Security
-* Role-based authorization
-
-### 📦 Product Features
-
-* Product name
-* Product description
-* Product price
-* Product category
-* Product image
-* Product listing
-* Product details
-* Backend API integration
-
-### 🛍️ Order Features
-
-* Create orders
-* Store customer information
-* Store order items
-* Calculate subtotal
-* Calculate delivery charges
-* Calculate total amount
-* Generate order ID
-* Store order date
-* View orders
-* View order items
+The application is built using **React.js, Spring Boot, Spring Security, JWT, Spring Data JPA, Hibernate, and MySQL**.
 
 ---
 
-# 🏗️ Project Architecture
+## 📌 Project Overview
 
-```text
-ShopSphere
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── context/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   │
-│   ├── package.json
-│   └── README.md
-│
-└── backend/
-    ├── src/
-    │   └── main/
-    │       ├── java/
-    │       │   └── com/
-    │       │       └── shopsphere/
-    │       │           ├── controller/
-    │       │           ├── model/
-    │       │           ├── repository/
-    │       │           ├── service/
-    │       │           ├── security/
-    │       │           └── ShopSphereApplication.java
-    │       │
-    │       └── resources/
-    │           └── application.properties
-    │
-    ├── pom.xml
-    └── README.md
-```
+WorkFlowPro provides a centralized platform for managing projects and team activities.
+
+Users can:
+
+- Register and log in securely
+- Access the system based on their role
+- Create and manage projects
+- Create and manage tasks
+- Assign tasks to team members
+- Manage teams
+- Track project and task progress
+- Add task comments
+- View notifications
+- Track project activities
+
+The project follows a **full-stack architecture** where the React frontend communicates with a Spring Boot REST API connected to a MySQL database.
 
 ---
 
-# 💻 Technology Stack
+# 🛠️ Tech Stack
 
 ## Frontend
 
-| Technology   | Purpose                     |
-| ------------ | --------------------------- |
-| React.js     | User interface              |
-| JavaScript   | Application logic           |
-| React Router | Page navigation             |
-| CSS3         | Styling                     |
-| Context API  | Cart state management       |
-| Fetch API    | Backend communication       |
-| Vite         | Frontend development server |
+- React.js
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- Lucide React
+- Recharts
 
 ## Backend
 
-| Technology      | Purpose                        |
-| --------------- | ------------------------------ |
-| Java            | Backend programming            |
-| Spring Boot     | Backend framework              |
-| Spring Security | Authentication & authorization |
-| JWT             | Secure authentication          |
-| Spring Data JPA | Database operations            |
-| Maven           | Dependency management          |
-| REST API        | Frontend/backend communication |
+- Java
+- Spring Boot
+- Spring Web
+- Spring Security
+- JWT Authentication
+- Spring Data JPA
+- Hibernate
+- Maven
 
 ## Database
 
-| Technology    | Purpose              |
-| ------------- | -------------------- |
-| MySQL         | Application database |
-| Hibernate/JPA | ORM                  |
+- MySQL
+
+## Tools
+
+- Visual Studio Code
+- IntelliJ IDEA
+- MySQL Workbench
+- Postman
+- Git
+- GitHub
 
 ---
 
-# 🎨 Frontend
-
-The frontend is developed using **React.js**.
-
-## Main Pages
+# 🏗️ Application Architecture
 
 ```text
-/
-├── Home
-├── Products
-├── Product Details
-├── Cart
-├── Checkout
-├── Order Success
-├── Orders
-├── Register
-├── Login
-└── Admin Products
-```
-
-## Frontend Routes
-
-```text
-/
-/products
-/products/:id
-/cart
-/checkout
-/order-success
-/orders
-/register
-/login
-/admin/products
-```
-
----
-
-# 🛒 Cart Management
-
-ShopSphere uses React Context API for managing cart information.
-
-The cart supports:
-
-* Add to cart
-* Increase quantity
-* Decrease quantity
-* Remove item
-* Clear cart
-* Calculate subtotal
-* Calculate total items
-
-Example:
-
-```text
-Product
-   ↓
-Add to Cart
-   ↓
-CartContext
-   ↓
-Cart
-   ↓
-Checkout
-   ↓
-Create Order
+                    ┌─────────────────────┐
+                    │    React Frontend   │
+                    │                     │
+                    │ React + Vite        │
+                    │ Tailwind CSS        │
+                    │ Axios               │
+                    │ React Router        │
+                    └──────────┬──────────┘
+                               │
+                               │ REST API
+                               ▼
+                    ┌─────────────────────┐
+                    │   Spring Boot API   │
+                    │                     │
+                    │ Controllers         │
+                    │ Services            │
+                    │ Repositories        │
+                    │ Spring Security     │
+                    │ JWT                 │
+                    └──────────┬──────────┘
+                               │
+                               │ JPA / Hibernate
+                               ▼
+                    ┌─────────────────────┐
+                    │       MySQL         │
+                    │                     │
+                    │ Users               │
+                    │ Projects            │
+                    │ Tasks               │
+                    │ Teams               │
+                    │ Comments            │
+                    │ Notifications       │
+                    │ Activities          │
+                    └─────────────────────┘
 ```
 
 ---
 
-# 🔐 Authentication
+# ✨ Features
 
-ShopSphere uses **JWT authentication** with Spring Security.
+## 🔐 Authentication & Authorization
+
+WorkFlowPro uses **JWT-based authentication** with Spring Security.
+
+Features include:
+
+- User registration
+- User login
+- JWT token generation
+- JWT token validation
+- Secure API access
+- Logout
+- Role-based authorization
+- Protected routes
 
 Authentication flow:
 
 ```text
 User
- │
- ▼
+ ↓
 Login
- │
- ▼
-Backend
- │
- ▼
+ ↓
+React Frontend
+ ↓
+Spring Boot API
+ ↓
 Validate Credentials
- │
- ▼
-Generate JWT Token
- │
- ▼
-Frontend
- │
- ▼
-Store Token
- │
- ▼
-Send Token with Protected Requests
- │
- ▼
-JWT Authentication Filter
- │
- ▼
-Spring Security
- │
- ▼
-Allow / Reject Request
+ ↓
+Generate JWT
+ ↓
+Frontend Stores Token
+ ↓
+Protected API Requests
 ```
 
 ---
 
-# 🛡️ Authorization
+# 👥 Role-Based Access Control
 
-The application supports role-based authorization.
-
-Example roles:
+WorkFlowPro supports multiple user roles:
 
 ```text
 USER
+TEAM_LEAD
+MANAGER
 ADMIN
 ```
 
-Regular users can:
+Roles are used to control access to different features of the application.
 
-* Browse products
-* Add products to cart
-* Place orders
-* View their orders
+---
 
-Admins can access protected product-management functionality.
+# 📊 Dashboard
 
-Example:
+The dashboard provides a centralized overview of the user's workspace.
+
+Dashboard includes:
+
+- Total Projects
+- Total Tasks
+- Completed Tasks
+- Team Members
+- Project navigation
+- Quick actions
+- Project overview
+
+---
+
+# 📁 Project Management
+
+Users can manage projects through the Projects module.
+
+Features include:
+
+- Create projects
+- View projects
+- Update projects
+- Delete projects
+- Track project status
+- Set project dates
+- Add project descriptions
+- Manage project members
+
+Project statuses include:
 
 ```text
-USER
- ├── Products
- ├── Cart
- ├── Checkout
- └── Orders
-
-ADMIN
- ├── Products
- ├── Add Product
- └── Product Management
+PLANNED
+IN_PROGRESS
+COMPLETED
 ```
 
 ---
 
-# ⚙️ Backend Architecture
+# ✅ Task Management
 
-The backend follows a layered architecture.
+Tasks can be created and managed under projects.
+
+Features include:
+
+- Create tasks
+- View tasks
+- Update tasks
+- Delete tasks
+- Assign tasks
+- Track task status
+- Set task priority
+- Set due dates
+- Add descriptions
+- Add comments
+
+Example task statuses:
+
+```text
+TODO
+IN_PROGRESS
+COMPLETED
+```
+
+---
+
+# 👨‍👩‍👧‍👦 Team Management
+
+The team module helps organize users into project teams.
+
+Features include:
+
+- Create teams
+- View teams
+- Add team members
+- Remove team members
+- View team members
+- Associate members with projects
+
+---
+
+# 💬 Task Comments
+
+Users can communicate through task comments.
+
+Features include:
+
+- Add comments
+- View comments
+- Associate comments with tasks
+- Track task discussions
+
+---
+
+# 🔔 Notifications
+
+The notification system provides information about important events.
+
+Examples:
+
+```text
+Task Assigned
+Task Updated
+Project Updated
+Team Member Added
+Task Completed
+```
+
+---
+
+# 📝 Activity Tracking
+
+The application can track important project activities.
+
+Examples:
+
+```text
+Project Created
+Project Updated
+Task Created
+Task Assigned
+Task Completed
+Team Member Added
+```
+
+---
+
+# 🗄️ Database
+
+WorkFlowPro uses **MySQL** as the relational database.
+
+The backend uses:
+
+```text
+Spring Data JPA
+       +
+Hibernate
+       +
+MySQL
+```
+
+Main entities include:
+
+```text
+User
+Project
+Task
+Team
+TeamMember
+TaskComment
+Notification
+Activity
+```
+
+---
+
+# 🔗 Backend Architecture
+
+The Spring Boot backend follows a layered architecture:
 
 ```text
 Controller
@@ -297,372 +330,230 @@ Service
 Repository
      ↓
 Database
+```
+
+### Controller
+
+Handles HTTP requests and responses.
+
+### Service
+
+Contains application business logic.
+
+### Repository
+
+Communicates with the database using Spring Data JPA.
+
+### Entity
+
+Represents database tables and relationships.
+
+---
+
+# 📂 Project Structure
+
+```text
+WorkFlowPro/
+│
+├── workflowpro-ui/
+│   │
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+└── workflowpro-backend/
+    │
+    ├── src/
+    │   └── main/
+    │       ├── java/
+    │       │   └── com/
+    │       │       └── workflowpro/
+    │       │           └── backend/
+    │       │               ├── user/
+    │       │               ├── project/
+    │       │               ├── task/
+    │       │               ├── team/
+    │       │               ├── notification/
+    │       │               ├── activity/
+    │       │               ├── security/
+    │       │               └── config/
+    │       │
+    │       └── resources/
+    │           └── application.properties
+    │
+    └── pom.xml
+```
+
+---
+
+# 🌐 REST API
+
+The backend exposes REST APIs consumed by the React frontend.
+
+Main API areas:
+
+```text
+/auth
+/users
+/projects
+/tasks
+/teams
+/notifications
+/activities
+```
+
+Authentication endpoints:
+
+```http
+POST /auth/register
+POST /auth/login
+```
+
+Example project endpoints:
+
+```http
+GET    /projects
+GET    /projects/{id}
+POST   /projects
+PUT    /projects/{id}
+DELETE /projects/{id}
+```
+
+Example task endpoints:
+
+```http
+GET    /tasks
+GET    /tasks/{id}
+POST   /tasks
+PUT    /tasks/{id}
+DELETE /tasks/{id}
+```
+
+---
+
+# 🔒 JWT Security
+
+Protected requests use:
+
+```http
+Authorization: Bearer <JWT_TOKEN>
 ```
 
 Security flow:
 
 ```text
-Request
-   ↓
-JWT Authentication Filter
-   ↓
+React
+ ↓
+Axios
+ ↓
+JWT Token
+ ↓
 Spring Security
-   ↓
+ ↓
+JWT Validation
+ ↓
+Authorization
+ ↓
 Controller
-   ↓
-Service
-   ↓
-Repository
-   ↓
-Database
 ```
 
 ---
 
-# 📦 Backend Packages
+# 🧪 API Testing
 
-## Controller
+APIs can be tested using **Postman**.
 
-Handles HTTP requests and REST APIs.
-
-Example:
+Typical workflow:
 
 ```text
-ProductController
-OrderController
-UserController
-```
-
-## Service
-
-Contains application/business logic.
-
-Example:
-
-```text
-ProductService
-OrderService
-UserService
-```
-
-## Repository
-
-Handles database operations using Spring Data JPA.
-
-Example:
-
-```text
-ProductRepository
-OrderRepository
-OrderItemRepository
-UserRepository
-```
-
-## Model
-
-Contains database entities.
-
-Example:
-
-```text
-Product
-Order
-OrderItem
-User
-```
-
-## Security
-
-Contains authentication and authorization components.
-
-Example:
-
-```text
-JwtAuthenticationFilter
-SecurityConfig
+1. Register User
+       ↓
+2. Login
+       ↓
+3. Receive JWT
+       ↓
+4. Add JWT to Authorization Header
+       ↓
+5. Test Protected APIs
 ```
 
 ---
 
-# 🔌 REST API
-
-## Product APIs
-
-### Get All Products
-
-```http
-GET /api/products
-```
-
-### Get Product by ID
-
-```http
-GET /api/products/{id}
-```
-
-### Create Product
-
-```http
-POST /api/products
-```
-
----
-
-## Order APIs
-
-### Create Order
-
-```http
-POST /api/orders
-```
-
-### Get All Orders
-
-```http
-GET /api/orders
-```
-
-### Get Order by ID
-
-```http
-GET /api/orders/{id}
-```
-
-### Get Order Items
-
-```http
-GET /api/orders/{orderId}/items
-```
-
----
-
-## Authentication APIs
-
-Example authentication endpoints:
-
-```http
-POST /api/auth/register
-POST /api/auth/login
-```
-
-Authentication requests return a JWT token which can be used to access protected APIs.
-
----
-
-# 🗄️ Database Structure
-
-ShopSphere uses a relational database.
-
-Main tables:
-
-```text
-users
-products
-orders
-order_items
-```
-
-### Products
-
-```text
-products
--------------------------
-id
-name
-description
-price
-category
-image_url
-```
-
-### Orders
-
-```text
-orders
--------------------------
-id
-order_id
-full_name
-email
-phone
-address
-city
-state
-pincode
-subtotal
-delivery_charge
-total
-order_date
-```
-
-### Order Items
-
-```text
-order_items
--------------------------
-id
-order_id
-product_id
-product_name
-price
-quantity
-total
-```
-
-### Users
-
-```text
-users
--------------------------
-id
-name
-email
-password
-role
-```
-
----
-
-# 💰 Order Calculation
-
-The checkout system calculates:
-
-```text
-Subtotal
-   +
-Delivery Charge
-   =
-Total
-```
-
-Current delivery logic:
-
-```text
-Subtotal >= ₹1000
-        ↓
-Free Delivery
-
-Subtotal < ₹1000
-        ↓
-₹50 Delivery Charge
-```
-
----
-
-# 🖥️ Running the Project Locally
+# ⚙️ Local Setup
 
 ## Prerequisites
 
-Make sure you have installed:
+Install:
 
-* Java JDK
-* Node.js
-* npm
-* Maven
-* MySQL
-* Git
+- Java JDK
+- Maven
+- Node.js
+- MySQL
+- IntelliJ IDEA
+- Visual Studio Code
+- Postman
 
 ---
 
-# 1️⃣ Clone the Repository
+## 1. Clone Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/shopsphere.git
-```
-
-Move into the project:
-
-```bash
-cd shopsphere
+git clone <repository-url>
+cd WorkFlowPro
 ```
 
 ---
 
-# 2️⃣ Setup Backend
+## 2. Create MySQL Database
 
-Navigate to the backend folder:
-
-```bash
-cd backend
+```sql
+CREATE DATABASE workflowpro_db;
 ```
 
-Configure the database in:
+---
+
+## 3. Configure Backend
+
+Update:
 
 ```text
-src/main/resources/application.properties
+workflowpro-backend/src/main/resources/application.properties
 ```
 
 Example:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/shopsphere
+spring.application.name=workflowpro-backend
+
+spring.datasource.url=jdbc:mysql://localhost:3306/workflowpro_db
 spring.datasource.username=root
 spring.datasource.password=YOUR_PASSWORD
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+
+jwt.secret=YOUR_SECRET_KEY
+jwt.expiration-ms=86400000
 ```
 
-Then start the Spring Boot application.
+Do not commit real passwords or JWT secrets to GitHub.
 
-Using Maven:
+---
+
+## 4. Run Backend
 
 ```bash
+cd workflowpro-backend
+mvn clean install
 mvn spring-boot:run
-```
-
-Backend will normally run at:
-
-```text
-http://localhost:8080
-```
-
----
-
-# 3️⃣ Setup Frontend
-
-Open another terminal.
-
-Navigate to the frontend:
-
-```bash
-cd frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Frontend will normally run at:
-
-```text
-http://localhost:5173
-```
-
----
-
-# 🔗 Frontend ↔ Backend
-
-The React frontend communicates with the Spring Boot backend through REST APIs.
-
-Example:
-
-```javascript
-fetch("http://localhost:8080/api/products")
-```
-
-Frontend:
-
-```text
-http://localhost:5173
 ```
 
 Backend:
@@ -673,142 +564,122 @@ http://localhost:8080
 
 ---
 
-# 📁 Example Project Structure
+## 5. Run Frontend
+
+Open another terminal:
+
+```bash
+cd workflowpro-ui
+npm install
+npm run dev
+```
+
+Frontend:
 
 ```text
-ShopSphere/
-│
-├── frontend/
-│   │
-│   ├── public/
-│   │
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   └── ProductCard.jsx
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Products.jsx
-│   │   │   ├── ProductDetails.jsx
-│   │   │   ├── Cart.jsx
-│   │   │   ├── Checkout.jsx
-│   │   │   ├── Orders.jsx
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── OrderSuccess.jsx
-│   │   │   └── AdminProducts.jsx
-│   │   │
-│   │   ├── context/
-│   │   │   └── CartContext.jsx
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   │
-│   ├── package.json
-│   └── README.md
-│
-├── backend/
-│   │
-│   ├── src/
-│   │   └── main/
-│   │       ├── java/
-│   │       │   └── com/shopsphere/
-│   │       │       │
-│   │       │       ├── controller/
-│   │       │       ├── model/
-│   │       │       ├── repository/
-│   │       │       ├── service/
-│   │       │       └── security/
-│   │       │
-│   │       └── resources/
-│   │           └── application.properties
-│   │
-│   ├── pom.xml
-│   └── README.md
-│
-└── README.md
+http://localhost:5173
 ```
 
 ---
 
-# 🔒 Security
+# 🌐 Live Demo
 
-Sensitive configuration should **not** be committed to GitHub.
+Frontend:
 
-Do not upload:
+https://workflowpro-ui.vercel.app/
+
+---
+
+# 🚧 Future Enhancements
+
+Planned improvements include:
+
+- WebSocket real-time communication
+- Real-time notifications
+- Email notifications
+- Advanced project reports
+- Project analytics
+- File attachments
+- Docker deployment
+- CI/CD pipeline
+- Cloud deployment
+- Swagger/OpenAPI documentation
+- Advanced task filtering
+
+---
+
+# 🎯 Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+- Java
+- Spring Boot
+- Spring MVC
+- Spring Security
+- JWT
+- REST API
+- Spring Data JPA
+- Hibernate
+- MySQL
+- React.js
+- Vite
+- Tailwind CSS
+- Axios
+- React Router
+- Role-Based Access Control
+- Entity Relationships
+- Full-Stack Development
+- API Testing
+- Git & GitHub
+
+---
+
+# 📌 Project Type
+
+**Full-Stack Web Application**
+
+### Frontend
 
 ```text
-database passwords
-JWT secret keys
-API keys
-private credentials
+React.js
+Vite
+Tailwind CSS
+Axios
+React Router
 ```
 
-Use environment variables or local configuration for sensitive information.
-
----
-
-# 🌱 Future Improvements
-
-Possible future enhancements include:
-
-* Payment gateway integration
-* Product image upload
-* Product update/delete functionality
-* Advanced admin dashboard
-* User profile management
-* Wishlist
-* Product reviews and ratings
-* Inventory management
-* Pagination
-* Advanced product filtering
-* Email notifications
-* Order status tracking
-* Password reset
-* Deployment to cloud
-* Docker support
-* Automated testing
-
----
-
-# 📸 Application Flow
+### Backend
 
 ```text
-             SHOPSPHERE
-                 │
-       ┌─────────┴─────────┐
-       │                   │
-    FRONTEND             BACKEND
-       │                   │
-    React.js            Spring Boot
-       │                   │
-    Router              REST API
-       │                   │
-  Cart Context        Spring Security
-       │                   │
-       └─────────┬─────────┘
-                 │
-              MySQL
+Java
+Spring Boot
+Spring Security
+JWT
+Spring Data JPA
+Hibernate
+Maven
+```
+
+### Database
+
+```text
+MySQL
 ```
 
 ---
 
-# 👨‍💻 Developer
+# 👨‍💻 Author
 
-**Gowsik Balamurugan**
+**Gowsik B. S.**
 
 B.E. Computer Science and Engineering
 
+Full Stack Java + MERN Stack Developer
+
+LinkedIn:
+
+https://www.linkedin.com/in/gowsik-balamurugan
+
 ---
 
-# 📄 License
-
-This project is developed for learning, portfolio, and demonstration purposes.
-
----
-
-## ⭐ If you like this project
-
-Feel free to ⭐ the repository and explore the project.
+⭐ **WorkFlowPro** is a full-stack project demonstrating the integration of a modern React frontend with a secure Spring Boot REST API and MySQL database.
